@@ -1,12 +1,28 @@
 
 body {
-    padding: 10px;
+    font-weight: 300;
     font-family: 'Raleway', sans-serif;
+}
+
+#backgroundCanvasHolder {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    z-index: -1;
+}
+
+a {
+    text-decoration: none;
+    font-weight: 700;
+    color: white;
 }
 .welcome {
     color: white;
     text-align: center;
     padding: 2em 5% 2em 5%;
+    z-index: 1;
 }
 
 .welcome h1 {
@@ -60,5 +76,75 @@ body {
 @media (max-width: 400px) {
     .welcome {
         font-size: 1em;
+    }
+}
+
+@media (max-width: 600px) {
+    body {
+        padding: 0;
+    }
+    .welcome {
+        padding: 0;
+    }
+    #hexGrid {
+        list-style-type: none;
+    }
+
+    .hex {
+        width: 100%;
+        /* height: 120px;  */
+        overflow: hidden;
+        position: relative;
+    }
+    li.hex {
+        margin: 0;
+        padding: 0;
+    }
+    .hex:nth-child(2n+1) {
+        background-color: rgb(123, 158, 158);
+    }
+    .hex:nth-child(2n) {
+        background-color: rgba(0, 128, 128, 0.8);
+    }
+    .hexIn {
+        width: 100%;
+        height: 100%;
+    }
+    .hexIn:hover {
+        background: rgba(30, 30, 30, 0.1);
+        transition: background-color .2s ease-out;
+    }
+
+    .hex a {
+        width: 100%;
+        height: 100%;
+    }
+
+    .hex img {
+        width: 100%;
+        height: 100%;
+        max-width: 40%;
+        object-fit: cover;
+        z-index: 1;
+        float:left;
+        margin: 0;
+    }
+    .hex h1, .hex p {
+        /* margin: 2%; */
+        /* position: absolute; */
+        color: white;
+        z-index: 2;
+        font-weight: 300;
+    }
+    .hex h1 {
+        font-size: 1.2em;
+        padding: 1em;
+    }
+    .hex p {
+        display: relative;
+        margin: 0.2em;
+    }
+    .hex br {
+        clear: both;
     }
 }
