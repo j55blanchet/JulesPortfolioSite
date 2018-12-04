@@ -158,6 +158,8 @@ body {
   
   @media (max-width: 600px) { /* <- 2-1  hexagons per row */
     #hexGrid{
+      padding-top: 2%;
+      width: 100%;
       padding-bottom: 22.2%
     }
     .hex {
