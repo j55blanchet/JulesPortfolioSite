@@ -115,61 +115,8 @@ a:hover {
     .welcome {
         padding: 0;
     }
-    /* #hexGrid {
-        list-style-type: none;
-    }
+}
 
-    .hex {
-        overflow: hidden;
-        position: relative;
-    }
-    li.hex {
-        margin: 0;
-        padding: 0;
-    }
-    .hex:nth-child(2n+1) {
-        background-color: rgb(123, 158, 158);
-    }
-    .hex:nth-child(2n) {
-        background-color: rgba(0, 128, 128, 0.8);
-    }
-    .hexIn {
-        width: 100%;
-        height: 100%;
-    }
-    .hexIn:hover {
-        background: rgba(30, 30, 30, 0.1);
-        transition: background-color .2s ease-out;
-    }
-
-    .hex a {
-        width: 100%;
-        height: 100%;
-    }
-
-    .hex img {
-        width: 100%;
-        height: 100%;
-        max-width: 40%;
-        object-fit: cover;
-        z-index: 1;
-        float:left;
-        margin: 0;
-    }
-    .hex h1, .hex p {
-        color: white;
-        z-index: 2;
-        font-weight: 300;
-    }
-    .hex h1 {
-        font-size: 1.2em;
-        padding: 1em;
-    }
-    .hex p {
-        display: relative;
-        margin: 0.2em;
-    }
-    .hex br {
-        clear: both;
-    } */
+.padded {
+    padding: 1em;
 }

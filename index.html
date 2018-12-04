@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="hexagons.css">
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="overlay.css">
 
     <script src="Sketches/p5.min.js"></script>
     
@@ -35,6 +36,18 @@
 </div>
 
 <ul id="hexGrid">
+    <li class="hex">
+        <div class="hexIn">
+        <a class="hexLink" href="#bottom-sheet">
+            <img src="projects/teardrop/completed.jpg" alt="" />
+            
+            <h1>Teardrop Camper</h1>
+            <p>A summer long woodworking & fiberglass project</p>
+
+        </a>
+        
+        </div>
+    </li>
     <li class="hex">
         <div class="hexIn">
         <a class="hexLink" href="#">
@@ -70,6 +83,15 @@
 </ul>
 <br>
 <script src="Sketches/inertial-drawing/inertial-drawing.js"></script>
+<div id="bottom-sheet" class="overlay">
+        <a href="#close" class="btn-close" aria-hidden="true"><span class="mdi mdi-close"></span><span class="sr-only">Close</span></a>
 
+        <div class="padded">
+            <h3>Loading Project Details...</h3>
+        </div>
+    
+
+    
+</div>
 </body>
 </html>
