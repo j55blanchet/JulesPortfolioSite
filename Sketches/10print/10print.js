@@ -36,10 +36,10 @@ var tenPrint = new p5((sketch) => {
     let darkColor = sketch.color(30, 30, 30);
     let lightColor = sketch.color(230, 230, 230);
 
-    let markSize = 40;
+    let markSize = 70;
     let lineWeight = 2;
 
-    let lineStepPercent = 0.15;
+    let lineStepPercent = 0.04;
 
     let lineMakers = [];
     
@@ -77,13 +77,22 @@ var tenPrint = new p5((sketch) => {
             return;
         }
 
-        if (Math.random() < 0.5) {
+        let rNum = Math.random();
+        if (rNum < 0.25) {
             lineMakers.push(
                 new LineDrawer (x, y, x + markSize, y + markSize, lineStepPercent)
             );
-        } else {
+        } else if (rNum < 0.5) {
+            lineMakers.push(
+                new LineDrawer (x + markSize, y + markSize, x, y, lineStepPercent)
+            );
+        } else if (rNum < 0.75) {
             lineMakers.push(
                 new LineDrawer (x + markSize, y, x, y + markSize, lineStepPercent)
+            );
+        } else {
+            lineMakers.push(
+                new LineDrawer (x, y + markSize, x + markSize, y, lineStepPercent)
             );
         }
 
@@ -92,11 +101,6 @@ var tenPrint = new p5((sketch) => {
             x = 0;
             y += markSize
         }
-        if (y > sketch.height) {
-            y = 0;
-        }
-
-
     }
     
     sketch.windowResized = function() {
