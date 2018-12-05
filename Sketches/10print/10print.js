@@ -13,7 +13,7 @@ class LineDrawer {
     }
 
     draw(sketch) {
-        if (this.percent > 1) {
+        if (this.percent > 1 + this.stepPercent) {
             return;
         }
         let nx = this.ox + this.percent * (this.destX - this.ox);
@@ -108,6 +108,7 @@ var tenPrint = new p5((sketch) => {
         y = 0;
         lineMakers = [];
         sketch.resizeCanvas(sketch.windowWidth,sketch.windowHeight);
+        sketch.background(darkColor);
     }
 
 }, document.getElementById('backgroundCanvasHolder'));
