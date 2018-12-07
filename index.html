@@ -4,9 +4,14 @@
     <title>Portfolio | Julien.Studio</title>
     <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.2/css/bulma.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/solid.css" integrity="sha384-rdyFrfAIC05c5ph7BKz3l5NG5yEottvO/DQ0dCrwD8gzeQDjYBHNr1ucUpQuljos" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/fontawesome.css" integrity="sha384-u5J7JghGz0qUrmEsWzBQkfvc8nK3fUT7DCaQzNQ+q4oEXhGSx+P2OqjWsfIRB8QT" crossorigin="anonymous">
     <link rel="stylesheet" href="hexagons.css">
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="overlay.css">
+    <link rel="stylesheet" href="loader.css">
+
 
     <script src="Sketches/p5.min.js"></script>
     
@@ -19,6 +24,8 @@
 
     gtag('config', 'UA-130249653-1');
     </script>
+
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
 </head>
 <body>
 <div id="backgroundCanvasHolder"></div>
@@ -39,13 +46,19 @@
     <li class="hex">
         <div class="hexIn">
         <a class="hexLink" href="#bottom-sheet">
+            <img src="projects/GroveApp/GroveAppHex.png" alt="" />
+            <h1>Grove App</h1>
+            <p>A garden assistant and IOT controller</p>
+        </a>
+        </div>
+    </li>
+    <li class="hex">
+        <div class="hexIn">
+        <a class="hexLink" href="#bottom-sheet">
             <img src="projects/teardrop/completed.jpg" alt="" />
-            
             <h1>Teardrop Camper</h1>
             <p>A summer long woodworking & fiberglass project</p>
-
         </a>
-        
         </div>
     </li>
     <li class="hex">
@@ -86,10 +99,42 @@
 <div id="bottom-sheet" class="overlay">
  
         <div class="padded" id="article">
-            <a class="close" href="#close">Close</a>
+            <a class="close" href="#close"><i class="fas fa-times"></i></a>
             <br style="clear:both">
 
-            <iframe src="https://docs.google.com/document/d/e/2PACX-1vSR8FtuDCSDfIO4sbgkDJYvS7zrjJmUHILk_a5OktQfyAJNXPlt9X5BTHCoCjIZUomTGl_VxC5vaiOh/pub?embedded=true"></iframe>
+            <div id="dynamic-target" class="padded content">
+                <!-- <div class="loader">Loading ...</div> -->
+                <h3>Design Challenge: <small>Make Indoor Gardening Easy & Fun</small></h3>
+
+                <div class="video-container">
+                    <iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/zKdxDVJgZuA" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                </div>
+                <br>
+
+                <img src="projects/GroveApp/grove-kitchen-img.png" class="is-pulled-right" alt="">
+                <h5>Background</h5>
+                <p>Grove was based on an idea: <em>if people grow some of the food they eay, they'll live healthier and move fulfilling lives.</em></p>
+                <p>The company's goal was to get people growing their own food, and the company's strategy was threefold:</p>
+                <ol>
+                    <li>Build beautiful, easy-to-use kitchen gardening appliances to automate the tedious parts of the gardening experience.</li>
+                    <li>Deliver ready-to-grow "seedpods" that could be inserted into the appliacne like a Kureig cup.</li>
+                    <li>Tie these together with a software experience that combines a mobile app with a backend API service capable of controlling the appliances remotely and learning over time how to best grow each pod.</li>
+                </ol>
+                
+                <img src="projects/GroveApp/grove-promise-pitch.jpg" class="" alt="">
+                <img src="projects/GroveApp/grove-app-screens.png" alt="">
+
+                <h5>The App</h5>
+                <p>The app was designed to deliver on three core promises:
+                    <ol>
+                        <li>Allow the user to set up & control their appliance hardware.</li>
+                        <li>Give users guidance on planting, maintaining, harvesting, and eating their garden.</li>
+                        <li>Offer users a porthole to manage their "Grove Experience" by customizing their subscription of seedpods.</li>
+                    </ol>
+                </p>
+
+                <a href="projects/GroveApp/interaction-diagram.pdf" class="button is-dark">Go To Interaction Diagram&nbsp;<i class="fas fa-external-link-alt"></i></a>
+            </div>
         </div>
 </div>
 
