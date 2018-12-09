@@ -25,17 +25,16 @@ var BOTTOM_SHEET_HASH = "#bottom-sheet";
 })(window);
 window.onhashchange = function (event) {
     var newUrl = new URL(event.newURL);
-    attemptLoadBottomSheet(newUrl);
+    reactToLocation(newUrl);
 };
-
-function attemptLoadBottomSheet(url) {
+function reactToLocation(url) {
     if (url.hash === BOTTOM_SHEET_HASH) {
         var newpathencoded = url.searchParams.get("path");
-        loadOverlayHtml(decodeURIComponent(newpathencoded));
+        var newjsencoded = url.searchParams.get("js");
+        loadOverlay(decodeURIComponent(newpathencoded), new URL(decodeURIComponent(newjsencoded), window.location.origin));
     }
 }
-
-function loadOverlayHtml(path) {
+function loadOverlay(path, jsurl) {
     var xhr = new XMLHttpRequest();
     xhr.open('GET', path, true);
     document.getElementById('dynamic-target').innerHTML = "<div class=\"loader\">Loading ...</div>";
@@ -47,9 +46,13 @@ function loadOverlayHtml(path) {
             return;
         }
         document.getElementById('dynamic-target').innerHTML = this.responseText;
+        if (jsurl) {
+            var scriptTag = document.createElement('script');
+            scriptTag.src = jsurl.href;
+            document.getElementById('dynamic-target').appendChild(scriptTag);
+        }
     };
     xhr.send();
     console.log("Loading new file into bottom sheet: " + path);
 }
-
-attemptLoadBottomSheet(new URL(window.location.href));
+reactToLocation(new URL(window.location.href));

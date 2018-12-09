@@ -1,4 +1,4 @@
-const BOTTOM_SHEET_HASH = "bottom-sheet";
+const BOTTOM_SHEET_HASH = "#bottom-sheet";
 
 
 // Shim onhashchange if browser doesn't support
@@ -35,19 +35,22 @@ const BOTTOM_SHEET_HASH = "bottom-sheet";
 
   window.onhashchange = function(event) {
       let newUrl = new URL(event.newURL);
-      let oldUrl = new URL(event.oldURL);
-
-      if (newUrl.hash === BOTTOM_SHEET_HASH) {
-        let newpathencoded = newUrl.searchParams.get("path")
-        loadOverlayHtml(decodeURIComponent(newpathencoded));
-      }
+      reactToLocation(newUrl);
   };
 
-function loadOverlayHtml(path: string) {
+  function reactToLocation(url) {
+    if (url.hash === BOTTOM_SHEET_HASH) {
+      let newpathencoded = url.searchParams.get("path")
+      let newjsencoded = url.searchParams.get("js")
+      loadOverlay(decodeURIComponent(newpathencoded),
+                  new URL(decodeURIComponent(newjsencoded), window.location.origin));
+    }
+  }
+
+function loadOverlay(path: string, jsurl: URL) {
     
     let xhr = new XMLHttpRequest()
     xhr.open('GET', path, true)
-
     document.getElementById('dynamic-target').innerHTML = `<div class="loader">Loading ...</div>`;
 
     xhr.onreadystatechange = function() {
@@ -55,8 +58,14 @@ function loadOverlayHtml(path: string) {
         if (this.status !== 200) { return }
 
         document.getElementById('dynamic-target').innerHTML = this.responseText
+        if (jsurl) {
+          var scriptTag = document.createElement('script');
+          scriptTag.src = jsurl.href;
+          document.getElementById('dynamic-target').appendChild(scriptTag);
+        }
     }
-
     xhr.send();
     console.log(`Loading new file into bottom sheet: ${path}`)
 }
+
+reactToLocation(new URL(window.location.href));
