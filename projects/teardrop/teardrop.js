@@ -1,15 +1,7 @@
 
-let sliderChanged = function(newIndex) {
-    console.log("Slideshow index changed", newIndex);
-    switchToRealImage(newIndex)
-    switchToRealImage(newIndex + 1)
+let imageElems = [].slice.call(document.querySelectorAll("#teardrop-slideshow img"));
 
-    document.querySelector('input.slideshowSlider').value = newIndex;
-}
-
-let imageElems = [].slice.call(document.querySelectorAll(".slideshow img"));
-
-let switchToRealImage = function(index) {
+let loadImageIfNeeded = function(index) {
     if (!imageElems[index]) {
         return;
     }
@@ -20,20 +12,28 @@ let switchToRealImage = function(index) {
     }
 }
 
-let slider = simpleslider.getSlider({
-    onChange: sliderChanged,
-    init: 100,
-    show: 0,
-    end: -100,
-    unit: '%',
-});
-switchToRealImage(0);
-switchToRealImage(1);
-console.log("Created simple slider", slider);
+
+let slides = [].slice.call(document.querySelectorAll('#teardrop-slideshow .slide'));
+let currentSlide = 0;
+
+let nextSlide = function() {
+    setSlide((currentSlide+1)%slides.length);
+}
+
+let slideInterval = setInterval(nextSlide, 2000);
+
+let setSlide = function(index) {
+    slides[currentSlide].className = 'slide';
+    currentSlide = index;
+    slides[currentSlide].className = 'slide showing';
+    loadImageIfNeeded(currentSlide);
+    loadImageIfNeeded(currentSlide + 1 % slides.length);
+    document.querySelector('input.slideshowSlider').value = currentSlide;
+}
 
 document.querySelector('input.slideshowSlider').oninput = (e) => {
-    if (e.target.value !== slider.currentIndex()) {
-        slider.change(e.target.value);
-        console.log('User changed slideshow toggle');
+
+    if (e.target.value !== currentSlide) {
+        setSlide(e.target.value);
     }
 }
