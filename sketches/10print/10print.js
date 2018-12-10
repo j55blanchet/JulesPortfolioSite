@@ -1,7 +1,7 @@
 
 
 class LineDrawer {
-    constructor(x, y, destX, destY, stepPercent) {
+    constructor(x, y, destX, destY, stepPercent, initialPercent) {
         this.ox = x;
         this.oy = y;
         this.x = x;
@@ -9,20 +9,26 @@ class LineDrawer {
         this.destX = destX;
         this.destY = destY;
         this.stepPercent = stepPercent;
-        this.percent = 0;
+        this.percent = initialPercent || 0;
     }
 
     draw(sketch) {
+        
+        if (this.percent > 0) {
+            let effectivePercent = Math.min(1, this.percent);
+            let nx = this.ox + effectivePercent * (this.destX - this.ox);
+            let ny = this.oy + effectivePercent * (this.destY - this.oy);
+
+            sketch.line(this.ox, this.oy, nx, ny);
+
+            this.x = nx;
+            this.y = ny;
+        }
+
         if (this.percent > 1 + this.stepPercent) {
             return;
         }
-        let nx = this.ox + this.percent * (this.destX - this.ox);
-        let ny = this.oy + this.percent * (this.destY - this.oy);
 
-        sketch.line(this.x, this.y, nx, ny);
-
-        this.x = nx;
-        this.y = ny;
         this.percent = this.percent + this.stepPercent;
     }
 
@@ -33,82 +39,98 @@ class LineDrawer {
 
 var tenPrint = new p5((sketch) => {
 
+    let lineDrawerGrid = [];
+    
     let darkColor = sketch.color(30, 30, 30);
     let lightColor = sketch.color(230, 230, 230);
 
     let markSize = 70;
     let lineWeight = 2;
 
-    let lineStepPercent = 0.04;
+    let framesPerSecond = 60;
+    let initialEntrySeconds = 2;
+    let markDrawDuration = 1;
+    let lineStepPercent = 1 / (markDrawDuration * framesPerSecond);
 
     let lineMakers = [];
     
     let maxSimultaneous = 1000;
 
-    sketch.setup = function() {
-        sketch.createCanvas(sketch.windowWidth, sketch.windowHeight);
-        sketch.background(darkColor);
+    let hasCreatedFirstWave = false;
 
-    }
-    
-    let x = 0, y = 0;
-    sketch.frameRate(240);
-    sketch.draw = function() {
+    let makeLineDrawer = (col, row) => {
 
-        sketch.fill(darkColor);
-        sketch.noStroke();
-        sketch.rect(x, y, markSize, markSize);
+        let x = col * markSize;
+        let y = row * markSize;
 
-        sketch.stroke(lightColor);
-        sketch.strokeWeight(lineWeight);
-        lineMakers.forEach((m) => {
-            m.draw(sketch);
-        })
-
-        // lineMakers = lineMakers.filter((m) => {
-        //     m.isComplete();
-        // })
-
-        lineMakers = lineMakers.filter((val) => {
-            return !val.isComplete();
-        });
-
-        if (lineMakers.length > maxSimultaneous - 1) {
-            return;
-        }
+        let initialPercent = hasCreatedFirstWave ? 0 : Math.random() * -initialEntrySeconds;
 
         let rNum = Math.random();
         if (rNum < 0.25) {
-            lineMakers.push(
-                new LineDrawer (x, y, x + markSize, y + markSize, lineStepPercent)
-            );
+            return new LineDrawer (x, y, x + markSize, y + markSize, lineStepPercent, initialPercent)
         } else if (rNum < 0.5) {
-            lineMakers.push(
-                new LineDrawer (x + markSize, y + markSize, x, y, lineStepPercent)
-            );
+            return new LineDrawer (x + markSize, y + markSize, x, y, lineStepPercent, initialPercent)
         } else if (rNum < 0.75) {
-            lineMakers.push(
-                new LineDrawer (x + markSize, y, x, y + markSize, lineStepPercent)
-            );
+            return new LineDrawer (x + markSize, y, x, y + markSize, lineStepPercent, initialPercent)
         } else {
-            lineMakers.push(
-                new LineDrawer (x, y + markSize, x + markSize, y, lineStepPercent)
-            );
+            return new LineDrawer (x, y + markSize, x + markSize, y, lineStepPercent, initialPercent)
+        }
+    }
+
+    sketch.updateLineDrawers = () => {
+        
+        let colCount = Math.ceil(sketch.width / markSize);
+        let rowCount = Math.ceil(sketch.height / markSize);
+
+        // Ensure we have the correct number of columns
+        for(let newCol = lineDrawerGrid.length; newCol < colCount; newCol ++) {
+            // Add a new array of columns
+            lineDrawerGrid.push([])
+        }
+        lineDrawerGrid.splice(colCount)
+        
+        // For each col, ensure we have the correct number of lineMakers obejcts
+        for(let c = 0; c < lineDrawerGrid.length; c++) {
+            let col = lineDrawerGrid[c];
+
+            for(let r = col.length; r < rowCount; r++) {
+
+                let lineDrawer = makeLineDrawer(c, r)
+                // Add a new line drawer
+                col.push(lineDrawer)
+            }
         }
 
-        x += markSize;
-        if (x > sketch.width) {
-            x = 0;
-            y += markSize
-        }
+        hasCreatedFirstWave = true;
+    }
+
+    sketch.setup = function() {
+        sketch.createCanvas(sketch.windowWidth, sketch.windowHeight);
+        sketch.background(darkColor);
+        sketch.frameRate(framesPerSecond);
+        sketch.updateLineDrawers();
+    }
+    
+    sketch.draw = function() {
+
+        sketch.background(darkColor);
+        
+        sketch.stroke(lightColor);
+        sketch.strokeWeight(lineWeight);
+
+        lineDrawerGrid.forEach(col => {
+            col.forEach(cell => {
+                cell.draw(sketch);
+            })
+        })
+        lineMakers.forEach((m) => {
+            m.draw(sketch);
+        })
     }
     
     sketch.windowResized = function() {
-        x = 0;
-        y = 0;
-        lineMakers = [];
         sketch.resizeCanvas(sketch.windowWidth,sketch.windowHeight);
-        sketch.background(darkColor);
+        sketch.updateLineDrawers();
     }
 
 }, document.getElementById('backgroundCanvasHolder'));
