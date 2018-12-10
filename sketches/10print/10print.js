@@ -41,8 +41,9 @@ var tenPrint = new p5((sketch) => {
 
     let lineDrawerGrid = [];
     
-    let darkColor = sketch.color(100, 100, 100);
-    let lightColor = sketch.color(230, 230, 230);
+    let fadeAlpha = 20;
+    let darkColor = sketch.color(37, 148, 185);
+    let lightColor = sketch.color(153, 204, 255);
 
     let markSize = 70;
     let lineWeight = 2;
@@ -113,7 +114,7 @@ var tenPrint = new p5((sketch) => {
     sketch.draw = function() {
 
         sketch.noStroke();
-        sketch.fill(sketch.red(darkColor), sketch.green(darkColor), sketch.blue(darkColor), 30);
+        sketch.fill(sketch.red(darkColor), sketch.green(darkColor), sketch.blue(darkColor), fadeAlpha);
         sketch.rect(0, 0, sketch.width, sketch.height);
 
         sketch.stroke(lightColor);
