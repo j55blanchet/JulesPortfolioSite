@@ -41,7 +41,7 @@ var tenPrint = new p5((sketch) => {
 
     let lineDrawerGrid = [];
     
-    let darkColor = sketch.color(30, 30, 30);
+    let darkColor = sketch.color(100, 100, 100);
     let lightColor = sketch.color(230, 230, 230);
 
     let markSize = 70;
@@ -51,29 +51,28 @@ var tenPrint = new p5((sketch) => {
     let initialEntrySeconds = 2;
     let markDrawDuration = 1;
     let lineStepPercent = 1 / (markDrawDuration * framesPerSecond);
-
-    let lineMakers = [];
     
-    let maxSimultaneous = 1000;
+    let regenProbability = 1.0 / 10 / framesPerSecond;
 
     let hasCreatedFirstWave = false;
 
-    let makeLineDrawer = (col, row) => {
+    let makeLineDrawer = (col, row, isSlower) => {
 
         let x = col * markSize;
         let y = row * markSize;
 
         let initialPercent = hasCreatedFirstWave ? 0 : Math.random() * -initialEntrySeconds;
+        let effectiveLineStepDuration = isSlower ? lineStepPercent / 3 :lineStepPercent;
 
         let rNum = Math.random();
         if (rNum < 0.25) {
-            return new LineDrawer (x, y, x + markSize, y + markSize, lineStepPercent, initialPercent)
+            return new LineDrawer (x, y, x + markSize, y + markSize, effectiveLineStepDuration, initialPercent)
         } else if (rNum < 0.5) {
-            return new LineDrawer (x + markSize, y + markSize, x, y, lineStepPercent, initialPercent)
+            return new LineDrawer (x + markSize, y + markSize, x, y, effectiveLineStepDuration, initialPercent)
         } else if (rNum < 0.75) {
-            return new LineDrawer (x + markSize, y, x, y + markSize, lineStepPercent, initialPercent)
+            return new LineDrawer (x + markSize, y, x, y + markSize, effectiveLineStepDuration, initialPercent)
         } else {
-            return new LineDrawer (x, y + markSize, x + markSize, y, lineStepPercent, initialPercent)
+            return new LineDrawer (x, y + markSize, x + markSize, y, effectiveLineStepDuration, initialPercent)
         }
     }
 
@@ -113,23 +112,33 @@ var tenPrint = new p5((sketch) => {
     
     sketch.draw = function() {
 
-        sketch.background(darkColor);
-        
+        sketch.noStroke();
+        sketch.fill(sketch.red(darkColor), sketch.green(darkColor), sketch.blue(darkColor), 30);
+        sketch.rect(0, 0, sketch.width, sketch.height);
+
         sketch.stroke(lightColor);
         sketch.strokeWeight(lineWeight);
 
+        for(let c = 0; c < lineDrawerGrid.length; c++) {
+            for (let r = 0; r < lineDrawerGrid[c].length; r++) {
+                lineDrawerGrid[c][r].draw(sketch);
+
+                if (Math.random() < regenProbability) {
+                    lineDrawerGrid[c][r] = makeLineDrawer(c, r, true);
+                }
+            }
+        }
         lineDrawerGrid.forEach(col => {
             col.forEach(cell => {
                 cell.draw(sketch);
+                
             })
-        })
-        lineMakers.forEach((m) => {
-            m.draw(sketch);
         })
     }
     
     sketch.windowResized = function() {
         sketch.resizeCanvas(sketch.windowWidth,sketch.windowHeight);
+        sketch.background(darkColor);
         sketch.updateLineDrawers();
     }
 
