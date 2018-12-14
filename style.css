@@ -84,6 +84,18 @@ a:hover {
     margin: 0 0.5em 0.5em 0;
     float: left;
 }
+.smallLeftFloat {
+    max-width: 25%;
+    margin: 0 1em 0.5em 0;
+    float: left;
+}
+
+.padded-small {
+    padding: 0.5em;
+}
+.padded {
+    padding: 1em;
+}
 
 @media (min-width:1201px){
     .welcome {
