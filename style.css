@@ -79,6 +79,12 @@ a:hover {
     margin-bottom: 0.33em;
 }
 
+.leftFloat {
+    max-width: 45%;
+    margin: 0 0.5em 0.5em 0;
+    float: left;
+}
+
 @media (min-width:1201px){
     .welcome {
         font-size: 1.7em;
@@ -127,8 +133,14 @@ a:hover {
 }
 
 #article .close {
-    font-size: 1.5em;
+    padding: 0.25em 0.6em;
     color: rgb(30, 30, 30);
+    border-radius: 3em;
+    -webkit-transition: background-color 0.4s;
+    transition: background-color 0.4s;
+}
+#article .close:hover {
+    background-color: rgba(0, 0, 0, 0.2);
 }
 
 #article {
