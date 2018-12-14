@@ -90,6 +90,13 @@ a:hover {
     float: left;
 }
 
+.inline-thumbnail {
+    max-height: 70px;
+    width: 70px;
+    padding: 0.5em;
+    border-radius: 1em;
+}
+
 .padded-small {
     padding: 0.5em;
 }
