@@ -1,7 +1,6 @@
 
-
 class LineDrawer {
-    constructor(x, y, destX, destY, stepPercent, initialPercent) {
+    constructor(x, y, destX, destY, stepPercent, initialPercent, color, rainbowColor) {
         this.ox = x;
         this.oy = y;
         this.x = x;
@@ -10,9 +9,25 @@ class LineDrawer {
         this.destY = destY;
         this.stepPercent = stepPercent;
         this.percent = initialPercent || 0;
+        this.color = color;
+        this.rainbowColor = rainbowColor;
     }
 
     draw(sketch) {
+        let size = Math.abs(this.destX - this.ox);
+        const mouseSensivityRadius = size * 5;
+
+        let mx = (this.ox + this.destX) / 2, my = (this.oy + this.destY) / 2;
+        let distToMouse = sketch.dist(sketch.mouseX, sketch.mouseY, mx, my);
+        
+        let percentClose = (mouseSensivityRadius - distToMouse) / mouseSensivityRadius;
+
+        if (percentClose > 0) {
+            let resultColor = sketch.lerpColor(this.color, this.rainbowColor, percentClose);
+            sketch.stroke(resultColor);
+        } else {
+            sketch.stroke(this.color);
+        }
         
         if (this.percent > 0) {
             let effectivePercent = Math.min(1, this.percent);
@@ -38,42 +53,60 @@ class LineDrawer {
 }
 
 var tenPrint = new p5((sketch) => {
+    
+    sketch.colorMode(sketch.HSB, 255, 255, 255, 100);
 
     let lineDrawerGrid = [];
     
     let fadeAlpha = 20;
-    let darkColor = sketch.color(37, 148, 185);
-    let lightColor = sketch.color(153, 204, 255);
+    
+    let backgroundColor = sketch.color(100, 0, 60, 10);
+    let foregroundColor = sketch.color(160, 0, 100, 20);
 
-    let markSize = 70;
-    let lineWeight = 2;
+    let markSize = 55;
+    let lineWeight = 1.5;
 
     let framesPerSecond = 60;
-    let initialEntrySeconds = 2;
+    let initialEntrySeconds = 3;
     let markDrawDuration = 1;
     let lineStepPercent = 1 / (markDrawDuration * framesPerSecond);
     
     let regenProbability = 1.0 / 10 / framesPerSecond;
 
     let hasCreatedFirstWave = false;
+    
+    let hueIncrement = 5;
+    let lineBrightness = 200;
+    let lineSaturation = 225;
+
+
+    let hue = Math.random() * 255;
 
     let makeLineDrawer = (col, row, isSlower) => {
+
+        hue += hueIncrement;
+        hue %= 255;
+
+        let color = foregroundColor; //sketch.color(hue, lineBrightness, lineSaturation);
+
 
         let x = col * markSize;
         let y = row * markSize;
 
         let initialPercent = hasCreatedFirstWave ? 0 : Math.random() * -initialEntrySeconds;
         let effectiveLineStepDuration = isSlower ? lineStepPercent / 3 :lineStepPercent;
+        
+        let rainbowColor = sketch.color(hue, 160, 160, 75);
 
         let rNum = Math.random();
         if (rNum < 0.25) {
-            return new LineDrawer (x, y, x + markSize, y + markSize, effectiveLineStepDuration, initialPercent)
+            return new LineDrawer (x, y, x + markSize, y + markSize, effectiveLineStepDuration, initialPercent, color, rainbowColor)
         } else if (rNum < 0.5) {
-            return new LineDrawer (x + markSize, y + markSize, x, y, effectiveLineStepDuration, initialPercent)
+            return new LineDrawer (x + markSize, y + markSize, x, y, effectiveLineStepDuration, initialPercent, color, rainbowColor)
         } else if (rNum < 0.75) {
-            return new LineDrawer (x + markSize, y, x, y + markSize, effectiveLineStepDuration, initialPercent)
+            return new LineDrawer (x + markSize, y, x, y + markSize, effectiveLineStepDuration, initialPercent, color, rainbowColor)
         } else {
-            return new LineDrawer (x, y + markSize, x + markSize, y, effectiveLineStepDuration, initialPercent)
+            return new LineDrawer (x, y + markSize, x + markSize, y, effectiveLineStepDuration, initialPercent, color, rainbowColor)
         }
     }
 
@@ -106,7 +139,7 @@ var tenPrint = new p5((sketch) => {
 
     sketch.setup = function() {
         sketch.createCanvas(sketch.windowWidth, sketch.windowHeight);
-        sketch.background(darkColor);
+        sketch.background(sketch.hue(backgroundColor), sketch.saturation(backgroundColor), sketch.brightness(backgroundColor));
         sketch.frameRate(framesPerSecond);
         sketch.updateLineDrawers();
     }
@@ -114,10 +147,10 @@ var tenPrint = new p5((sketch) => {
     sketch.draw = function() {
 
         sketch.noStroke();
-        sketch.fill(sketch.red(darkColor), sketch.green(darkColor), sketch.blue(darkColor), fadeAlpha);
+        sketch.fill(backgroundColor);
         sketch.rect(0, 0, sketch.width, sketch.height);
 
-        sketch.stroke(lightColor);
+        sketch.stroke(foregroundColor);
         sketch.strokeWeight(lineWeight);
 
         for(let c = 0; c < lineDrawerGrid.length; c++) {
@@ -139,7 +172,7 @@ var tenPrint = new p5((sketch) => {
     
     sketch.windowResized = function() {
         sketch.resizeCanvas(sketch.windowWidth,sketch.windowHeight);
-        sketch.background(darkColor);
+        sketch.background(backgroundColor);
         sketch.updateLineDrawers();
     }
 
