@@ -66,7 +66,7 @@ var tenPrint = new p5((sketch) => {
     let markSize = 55;
     let lineWeight = 1.5;
 
-    let framesPerSecond = 60;
+    let framesPerSecond = 18;
     let initialEntrySeconds = 3;
     let markDrawDuration = 1;
     let lineStepPercent = 1 / (markDrawDuration * framesPerSecond);
