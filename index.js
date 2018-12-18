@@ -54,5 +54,10 @@ function loadOverlay(path, jsurl) {
     };
     xhr.send();
     console.log("Loading new file into bottom sheet: " + path);
+    document.querySelector('body').classList.add('noscroll');
 }
+var closeButton = document.querySelector('#article .close');
+closeButton.onclick = function (e) {
+    document.querySelector('body').classList.remove('noscroll');
+};
 reactToLocation(new URL(window.location.href));

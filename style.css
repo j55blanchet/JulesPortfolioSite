@@ -164,11 +164,17 @@ a:hover {
 
 #article {
     max-height: 100vh;
-    overflow: scroll;
+    overflow-y: scroll;
+    -ms-overflow-style: -ms-autohiding-scrollbar;
+    -webkit-overflow-scrolling: touch;
 }
 
 .padded {
     padding: 1em;
+}
+
+.noscroll {
+    overflow: hidden;
 }
 
 /* From http://coolestguidesontheplanet.com/videodrome/youtube/ */

@@ -66,6 +66,13 @@ function loadOverlay(path: string, jsurl: URL) {
     }
     xhr.send();
     console.log(`Loading new file into bottom sheet: ${path}`)
+    
+    document.querySelector('body').classList.add('noscroll')
 }
+
+let closeButton: HTMLAnchorElement = document.querySelector('#article .close');
+closeButton.onclick = (e) => {
+  document.querySelector('body').classList.remove('noscroll');
+};
 
 reactToLocation(new URL(window.location.href));
