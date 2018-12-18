@@ -7,6 +7,35 @@
         height: 0;
         padding-top: 56.25%;
     }
+
+    #teardrop-slideshow .left, #teardrop-slideshow .right{
+        position: absolute;
+        top: 0;
+        height: 100%;
+        max-width: 50%;
+        min-width: 20%;
+        z-index: 3;
+        color: rgba(30, 30, 30, 0.6);
+        transition: color 0.5s, background-color 0.5s, backdrop-filter 0.5s;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    #teardrop-slideshow .left:hover, #teardrop-slideshow .right:hover {
+        color: #FFF;
+        background-color: rgba(30, 30, 30, 0.35);
+
+        -webkit-backdrop-filter: blur(5px); 
+        backdrop-filter: blur(5px); 
+    }
+
+    #teardrop-slideshow .left {
+        left: 0;
+        
+    }
+    #teardrop-slideshow .right {
+        right: 0;
+    }
     .slide {
         position: absolute;
         display: block;
@@ -29,58 +58,79 @@
         z-index: 2;
         opacity: 1;
     }
+    .playpause {
+        cursor: pointer;
+        margin-right: 1em;
+        color: #303030;
+    }
+    .playpause:hover {
+        color: #606060;
+    }
 
     input.slideshowSlider {
-        width: 90%;
+        width: 85%;
         display: inline-block;
         margin: auto;
     }
 </style>
 
 <div id="teardrop-slideshow">
-    <a class="slide showing" href="projects/teardrop/timelapse-full/teardrop-0.jpg"><img src="projects/teardrop/timelapse-small/teardrop-0.jpg"></a>
-    <a class="slide" href="projects/teardrop/timelapse-full/teardrop-1.jpg"><img src="projects/teardrop/timelapse-small/teardrop-1.jpg"></a>
-    <a class="slide" href="projects/teardrop/timelapse-full/teardrop-2.jpg"><img data-src="projects/teardrop/timelapse-small/teardrop-2.jpg"></a>
-    <a class="slide" href="projects/teardrop/timelapse-full/teardrop-3.jpg"><img data-src="projects/teardrop/timelapse-small/teardrop-3.jpg"></a>
-    <a class="slide" href="projects/teardrop/timelapse-full/teardrop-4.jpg"><img data-src="projects/teardrop/timelapse-small/teardrop-4.jpg"></a>
-    <a class="slide" href="projects/teardrop/timelapse-full/teardrop-5.jpg"><img data-src="projects/teardrop/timelapse-small/teardrop-5.jpg"></a>
-    <a class="slide" href="projects/teardrop/timelapse-full/teardrop-6.jpg"><img data-src="projects/teardrop/timelapse-small/teardrop-6.jpg"></a>
-    <a class="slide" href="projects/teardrop/timelapse-full/teardrop-7.jpg"><img data-src="projects/teardrop/timelapse-small/teardrop-7.jpg"></a>
-    <a class="slide" href="projects/teardrop/timelapse-full/teardrop-8.jpg"><img data-src="projects/teardrop/timelapse-small/teardrop-8.jpg"></a>
-    <a class="slide" href="projects/teardrop/timelapse-full/teardrop-9.jpg"><img data-src="projects/teardrop/timelapse-small/teardrop-9.jpg"></a>
-    <a class="slide" href="projects/teardrop/timelapse-full/teardrop-10.jpg"><img data-src="projects/teardrop/timelapse-small/teardrop-10.jpg"></a>
-    <a class="slide" href="projects/teardrop/timelapse-full/teardrop-11.jpg"><img data-src="projects/teardrop/timelapse-small/teardrop-11.jpg"></a>
-    <a class="slide" href="projects/teardrop/timelapse-full/teardrop-12.jpg"><img data-src="projects/teardrop/timelapse-small/teardrop-12.jpg"></a>
-    <a class="slide" href="projects/teardrop/timelapse-full/teardrop-13.jpg"><img data-src="projects/teardrop/timelapse-small/teardrop-13.jpg"></a>
-    <a class="slide" href="projects/teardrop/timelapse-full/teardrop-14.jpg"><img data-src="projects/teardrop/timelapse-small/teardrop-14.jpg"></a>
-    <a class="slide" href="projects/teardrop/timelapse-full/teardrop-15.jpg"><img data-src="projects/teardrop/timelapse-small/teardrop-15.jpg"></a>
-    <a class="slide" href="projects/teardrop/timelapse-full/teardrop-16.jpg"><img data-src="projects/teardrop/timelapse-small/teardrop-16.jpg"></a>
-    <a class="slide" href="projects/teardrop/timelapse-full/teardrop-17.jpg"><img data-src="projects/teardrop/timelapse-small/teardrop-17.jpg"></a>
-    <a class="slide" href="projects/teardrop/timelapse-full/teardrop-18.jpg"><img data-src="projects/teardrop/timelapse-small/teardrop-18.jpg"></a>
-    <a class="slide" href="projects/teardrop/timelapse-full/teardrop-19.jpg"><img data-src="projects/teardrop/timelapse-small/teardrop-19.jpg"></a>
-    <a class="slide" href="projects/teardrop/timelapse-full/teardrop-20.jpg"><img data-src="projects/teardrop/timelapse-small/teardrop-20.jpg"></a>
-    <a class="slide" href="projects/teardrop/timelapse-full/teardrop-21.jpg"><img data-src="projects/teardrop/timelapse-small/teardrop-21.jpg"></a>
-    <a class="slide" href="projects/teardrop/timelapse-full/teardrop-22.jpg"><img data-src="projects/teardrop/timelapse-small/teardrop-22.jpg"></a>
-    <a class="slide" href="projects/teardrop/timelapse-full/teardrop-23.jpg"><img data-src="projects/teardrop/timelapse-small/teardrop-23.jpg"></a>
-    <a class="slide" href="projects/teardrop/timelapse-full/teardrop-24.jpg"><img data-src="projects/teardrop/timelapse-small/teardrop-24.jpg"></a>
-    <a class="slide" href="projects/teardrop/timelapse-full/teardrop-25.jpg"><img data-src="projects/teardrop/timelapse-small/teardrop-25.jpg"></a>
-    <a class="slide" href="projects/teardrop/timelapse-full/teardrop-26.jpg"><img data-src="projects/teardrop/timelapse-small/teardrop-26.jpg"></a>
-    <a class="slide" href="projects/teardrop/timelapse-full/teardrop-27.jpg"><img data-src="projects/teardrop/timelapse-small/teardrop-27.jpg"></a>
-    <a class="slide" href="projects/teardrop/timelapse-full/teardrop-28.jpg"><img data-src="projects/teardrop/timelapse-small/teardrop-28.jpg"></a>
-    <a class="slide" href="projects/teardrop/timelapse-full/teardrop-29.jpg"><img data-src="projects/teardrop/timelapse-small/teardrop-29.jpg"></a>
-    <a class="slide" href="projects/teardrop/timelapse-full/teardrop-30.jpg"><img data-src="projects/teardrop/timelapse-small/teardrop-30.jpg"></a>
-    <a class="slide" href="projects/teardrop/timelapse-full/teardrop-31.jpg"><img data-src="projects/teardrop/timelapse-small/teardrop-31.jpg"></a>
-    <a class="slide" href="projects/teardrop/timelapse-full/teardrop-32.jpg"><img data-src="projects/teardrop/timelapse-small/teardrop-32.jpg"></a>
-    <a class="slide" href="projects/teardrop/timelapse-full/teardrop-33.jpg"><img data-src="projects/teardrop/timelapse-small/teardrop-33.jpg"></a>
-    <a class="slide" href="projects/teardrop/timelapse-full/teardrop-34.jpg"><img data-src="projects/teardrop/timelapse-small/teardrop-34.jpg"></a>
-    <a class="slide" href="projects/teardrop/timelapse-full/teardrop-35.jpg"><img data-src="projects/teardrop/timelapse-small/teardrop-35.jpg"></a>
-    <a class="slide" href="projects/teardrop/timelapse-full/teardrop-36.jpg"><img data-src="projects/teardrop/timelapse-small/teardrop-36.jpg"></a>
-    <a class="slide" href="projects/teardrop/timelapse-full/teardrop-37.jpg"><img data-src="projects/teardrop/timelapse-small/teardrop-37.jpg"></a>
-    <a class="slide" href="projects/teardrop/timelapse-full/teardrop-38.jpg"><img data-src="projects/teardrop/timelapse-small/teardrop-38.jpg"></a>
-    <a class="slide" href="projects/teardrop/timelapse-full/teardrop-39.jpg"><img data-src="projects/teardrop/timelapse-small/teardrop-39.jpg"></a>
+    <img class="slide showing" src="projects/teardrop/timelapse-small/teardrop-0.jpg">
+    <img class="slide" src="projects/teardrop/timelapse-small/teardrop-1.jpg">
+    <img class="slide" data-src="projects/teardrop/timelapse-small/teardrop-2.jpg">
+    <img class="slide" data-src="projects/teardrop/timelapse-small/teardrop-3.jpg">
+    <img class="slide" data-src="projects/teardrop/timelapse-small/teardrop-4.jpg">
+    <img class="slide" data-src="projects/teardrop/timelapse-small/teardrop-5.jpg">
+    <img class="slide" data-src="projects/teardrop/timelapse-small/teardrop-6.jpg">
+    <img class="slide" data-src="projects/teardrop/timelapse-small/teardrop-7.jpg">
+    <img class="slide" data-src="projects/teardrop/timelapse-small/teardrop-8.jpg">
+    <img class="slide" data-src="projects/teardrop/timelapse-small/teardrop-9.jpg">
+    <img class="slide" data-src="projects/teardrop/timelapse-small/teardrop-10.jpg">
+    <img class="slide" data-src="projects/teardrop/timelapse-small/teardrop-11.jpg">
+    <img class="slide" data-src="projects/teardrop/timelapse-small/teardrop-12.jpg">
+    <img class="slide" data-src="projects/teardrop/timelapse-small/teardrop-13.jpg">
+    <img class="slide" data-src="projects/teardrop/timelapse-small/teardrop-14.jpg">
+    <img class="slide" data-src="projects/teardrop/timelapse-small/teardrop-15.jpg">
+    <img class="slide" data-src="projects/teardrop/timelapse-small/teardrop-16.jpg">
+    <img class="slide" data-src="projects/teardrop/timelapse-small/teardrop-17.jpg">
+    <img class="slide" data-src="projects/teardrop/timelapse-small/teardrop-18.jpg">
+    <img class="slide" data-src="projects/teardrop/timelapse-small/teardrop-19.jpg">
+    <img class="slide" data-src="projects/teardrop/timelapse-small/teardrop-20.jpg">
+    <img class="slide" data-src="projects/teardrop/timelapse-small/teardrop-21.jpg">
+    <img class="slide" data-src="projects/teardrop/timelapse-small/teardrop-22.jpg">
+    <img class="slide" data-src="projects/teardrop/timelapse-small/teardrop-23.jpg">
+    <img class="slide" data-src="projects/teardrop/timelapse-small/teardrop-24.jpg">
+    <img class="slide" data-src="projects/teardrop/timelapse-small/teardrop-25.jpg">
+    <img class="slide" data-src="projects/teardrop/timelapse-small/teardrop-26.jpg">
+    <img class="slide" data-src="projects/teardrop/timelapse-small/teardrop-27.jpg">
+    <img class="slide" data-src="projects/teardrop/timelapse-small/teardrop-28.jpg">
+    <img class="slide" data-src="projects/teardrop/timelapse-small/teardrop-29.jpg">
+    <img class="slide" data-src="projects/teardrop/timelapse-small/teardrop-30.jpg">
+    <img class="slide" data-src="projects/teardrop/timelapse-small/teardrop-31.jpg">
+    <img class="slide" data-src="projects/teardrop/timelapse-small/teardrop-32.jpg">
+    <img class="slide" data-src="projects/teardrop/timelapse-small/teardrop-33.jpg">
+    <img class="slide" data-src="projects/teardrop/timelapse-small/teardrop-34.jpg">
+    <img class="slide" data-src="projects/teardrop/timelapse-small/teardrop-35.jpg">
+    <img class="slide" data-src="projects/teardrop/timelapse-small/teardrop-36.jpg">
+    <img class="slide" data-src="projects/teardrop/timelapse-small/teardrop-37.jpg">
+    <img class="slide" data-src="projects/teardrop/timelapse-small/teardrop-38.jpg">
+    <img class="slide" data-src="projects/teardrop/timelapse-small/teardrop-39.jpg">
+    <a class="left">
+        <div class="icon is-large">
+            <i class="fas fa-3x fa-chevron-left"></i>
+        </div>
+    </a>
+    <a class="right">
+        <div class="icon is-large">
+            <i class="fas fa-3x fa-chevron-right"></i>
+        </div>
+    </a>
 </div>
 <br>
 <div class="field has-addons">
+    <p class="control">
+        <div class="playpause"><div class="icon is-medium"><i class="fas fa-fw fa-lg fa-pause"></i></div></div>
+    </p>
     <p class="control">
         April 2018
     </p>
@@ -90,4 +140,6 @@
     <p class="control">
         August 2018
     </p>
+</div>
+<div>
 </div>
