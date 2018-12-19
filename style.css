@@ -175,6 +175,7 @@ a:hover {
 
 .noscroll {
     overflow: hidden;
+    height: 100%;
 }
 
 /* From http://coolestguidesontheplanet.com/videodrome/youtube/ */

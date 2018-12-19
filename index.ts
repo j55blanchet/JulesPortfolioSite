@@ -66,12 +66,14 @@ function loadOverlay(path: string, jsurl: URL) {
     }
     xhr.send();
     console.log(`Loading new file into bottom sheet: ${path}`)
-    
-    document.querySelector('body').classList.add('noscroll')
+    document.querySelector('body').classList.add('noscroll');
 }
 
 let closeButton: HTMLAnchorElement = document.querySelector('#article .close');
 closeButton.onclick = (e) => {
+  if (window['onOverlayClosed']) {
+    window['onOverlayClosed']();
+  }
   document.querySelector('body').classList.remove('noscroll');
 };
 

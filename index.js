@@ -58,6 +58,9 @@ function loadOverlay(path, jsurl) {
 }
 var closeButton = document.querySelector('#article .close');
 closeButton.onclick = function (e) {
+    if (window['onOverlayClosed']) {
+        window['onOverlayClosed']();
+    }
     document.querySelector('body').classList.remove('noscroll');
 };
 reactToLocation(new URL(window.location.href));
