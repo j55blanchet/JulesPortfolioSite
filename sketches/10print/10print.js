@@ -63,7 +63,7 @@ var tenPrint = new p5((sketch) => {
     let backgroundColor = sketch.color(100, 0, 60, 10);
     let foregroundColor = sketch.color(160, 0, 100, 20);
 
-    let markSize = 55;
+    let markSize = 50;
     let lineWeight = 1.5;
 
     let framesPerSecond = 18;
@@ -139,9 +139,8 @@ var tenPrint = new p5((sketch) => {
 
     sketch.setup = function() {
         sketch.createCanvas(sketch.windowWidth, sketch.windowHeight);
-        sketch.background(sketch.hue(backgroundColor), sketch.saturation(backgroundColor), sketch.brightness(backgroundColor));
         sketch.frameRate(framesPerSecond);
-        sketch.updateLineDrawers();
+        sketch.windowResized();
     }
     
     sketch.draw = function() {
@@ -172,7 +171,7 @@ var tenPrint = new p5((sketch) => {
     
     sketch.windowResized = function() {
         sketch.resizeCanvas(sketch.windowWidth,sketch.windowHeight);
-        sketch.background(backgroundColor);
+        sketch.background(sketch.hue(backgroundColor), sketch.saturation(backgroundColor), sketch.brightness(backgroundColor));
         sketch.updateLineDrawers();
     }
 
